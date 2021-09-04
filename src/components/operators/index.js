@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./operators.css";
 
 function Operators({ HandleOperator }) {
   const [operations, setOperations] = useState(["+", "-", "x", "/", "=", "AC"]);

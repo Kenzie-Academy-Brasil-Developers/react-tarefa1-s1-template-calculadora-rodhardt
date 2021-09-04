@@ -72,7 +72,7 @@ function App() {
     setIsOperatorSelected(true);
     setSecondNumber("");
     setOperator(op);
-    if (op === "=" && secondNumber !== "") {
+    if (op === "=") {
       setOperator("");
       setIsOperatorSelected(false);
     }
@@ -88,19 +88,24 @@ function App() {
 
   return (
     <div className="App">
+      <header>
+        <h1>Calculadora</h1>
+      </header>
       <section className="calculator">
         <div className="display">
-          <span>{firstNumber}</span>
-          <span>{operator}</span>
-          <span>{secondNumber}</span>
+          <p>{firstNumber}</p>
+          <p>{operator}</p>
+          <p>{secondNumber}</p>
         </div>
         <div className="numbers">
+          <h3>Numbers</h3>
           <NumberChanger
             HandleFirstNumber={HandleFirstNumber}
             HandleSecondNumber={HandleSecondNumber}
           />
         </div>
         <div className="operators">
+          <h3>Operations</h3>
           <Operators HandleOperator={HandleOperator} />
         </div>
       </section>

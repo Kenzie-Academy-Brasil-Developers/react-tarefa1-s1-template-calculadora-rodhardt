@@ -1,0 +1,30 @@
+.operators ul {
+  width: 90%;
+  padding: 0;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.operators li {
+  list-style: none;
+  width: calc(100% / 4);
+  margin-bottom: 8px;
+}
+
+.operators button {
+  font-size: 1.4rem;
+  width: 90%;
+  height: 40px;
+  border: 1px solid rgb(117, 108, 108, 0.9);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 450px) {
+  .operators button {
+    height: 60px;
+    font-size: 1.6rem;
+  }
+}

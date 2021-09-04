@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./numberChangers.css";
 
 function NumberChanger({ HandleFirstNumber, HandleSecondNumber }) {
   const [numbersAndModifiers, setNumbersAndModifiers] = useState([
