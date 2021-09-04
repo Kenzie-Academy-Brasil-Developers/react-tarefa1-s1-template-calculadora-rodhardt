@@ -1,23 +1,109 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+
+import NumberChanger from "./components/numberChangers";
+import Operators from "./components/operators";
+import Calculations from "./components/calculations";
 
 function App() {
+  const [firstNumber, setFirstNumber] = useState("0");
+  const [secondNumber, setSecondNumber] = useState("");
+
+  const [operator, setOperator] = useState("");
+
+  const [isOperatorSelected, setIsOperatorSelected] = useState(false);
+  const [isNegative, setIsNegative] = useState(false);
+  const [isDecimal, setIsDecimal] = useState(false);
+
+  function HandleFirstNumber(n) {
+    if (isOperatorSelected) {
+      return null;
+    }
+    if (firstNumber === "0") {
+      return setFirstNumber(n);
+    }
+    if (n === "." && !isDecimal) {
+      setIsDecimal(!isDecimal);
+      return setFirstNumber(firstNumber.concat(n));
+    }
+    if (n === "-" && !isNegative) {
+      setIsNegative(!isNegative);
+      return setFirstNumber(`-${firstNumber}`);
+    }
+    setFirstNumber(firstNumber.concat(n));
+  }
+
+  function HandleSecondNumber() {
+    if (!isOperatorSelected) {
+      return null;
+    }
+    if (secondNumber === "0") {
+      return setsecondNumber(n);
+    }
+    if (n === "." && !isDecimal) {
+      setIsDecimal(true);
+      return setsecondNumber(secondNumber.concat(n));
+    }
+    if (n === "-" && !isNegative) {
+      setIsNegative(true);
+      return setsecondNumber(`-${secondNumber}`);
+    }
+    setsecondNumber(secondNumber.concat(n));
+  }
+
+  function HandleOperator(op) {
+    setIsNegative(false);
+    setIsDecimal(false);
+    setIsOperatorSelected(true);
+    if (!isOperatorSelected) {
+      return setOperator(op);
+    }
+    if (operator === "+") {
+      setFirstNumber(Calculations.soma(firstNumber, secondNumber));
+    }
+    if (operator === "-") {
+      setFirstNumber(Calculations.subtract(firstNumber, secondNumber));
+    }
+    if (operator === "x") {
+      setFirstNumber(Calculations.multiply(firstNumber, secondNumber));
+    }
+    if (operator === "/") {
+      setFirstNumber(Calculations.divide(firstNumber, secondNumber));
+    }
+    setSecondNumber("");
+    setOperator(op);
+    if (op === "=") {
+      setOperator("");
+      isOperatorSelected(false);
+    }
+    if (op === "AC") {
+      setFirstNumber("0");
+      setSecondNumber("");
+      setOperator("");
+      setIsOperatorSelected(false);
+      setIsNegative(false);
+      setIsDecimal(false);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="calculator">
+        <div className="display">
+          <span>{firstNumber}</span>
+          <span>{operator}</span>
+          <span>{secondNumber}</span>
+        </div>
+        <div className="numbers">
+          <NumberChanger
+            HandleFirstNumber={HandleFirstNumber}
+            HandleDecondNumber={HandleSecondNumber}
+          />
+        </div>
+        <div className="operators">
+          <Operators HandleOperator={HandleOperator} />
+        </div>
+      </section>
     </div>
   );
 }
