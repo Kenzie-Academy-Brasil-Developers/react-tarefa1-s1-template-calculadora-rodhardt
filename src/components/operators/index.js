@@ -1,7 +1,7 @@
-import { UseState } from "react";
+import { useState } from "react";
 
 function Operators({ HandleOperator }) {
-  const [operations, setOperations] = useState(["+", "-", "x", "/"]);
+  const [operations, setOperations] = useState(["+", "-", "x", "/", "=", "AC"]);
 
   return (
     <ul className="operators">
@@ -10,7 +10,7 @@ function Operators({ HandleOperator }) {
           <button
             key={index}
             onClick={() => {
-              HandleOperator();
+              HandleOperator(element);
             }}
           >
             {element}

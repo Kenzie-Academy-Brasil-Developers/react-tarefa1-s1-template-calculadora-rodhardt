@@ -30,51 +30,51 @@ function App() {
       setIsNegative(!isNegative);
       return setFirstNumber(`-${firstNumber}`);
     }
-    setFirstNumber(firstNumber.concat(n));
+    if (n !== "-" && n !== ".") {
+      return setFirstNumber(firstNumber.concat(n));
+    }
   }
 
-  function HandleSecondNumber() {
+  function HandleSecondNumber(n) {
     if (!isOperatorSelected) {
       return null;
     }
     if (secondNumber === "0") {
-      return setsecondNumber(n);
+      return setSecondNumber(n);
     }
     if (n === "." && !isDecimal) {
       setIsDecimal(true);
-      return setsecondNumber(secondNumber.concat(n));
+      return setSecondNumber(secondNumber.concat(n));
     }
     if (n === "-" && !isNegative) {
       setIsNegative(true);
-      return setsecondNumber(`-${secondNumber}`);
+      return setSecondNumber(`-${secondNumber}`);
     }
-    setsecondNumber(secondNumber.concat(n));
+    if (n !== "-" && n !== ".") setSecondNumber(secondNumber.concat(n));
   }
 
   function HandleOperator(op) {
     setIsNegative(false);
     setIsDecimal(false);
-    setIsOperatorSelected(true);
-    if (!isOperatorSelected) {
-      return setOperator(op);
+
+    if (operator === "+" && secondNumber !== "") {
+      setFirstNumber(Calculations.sum(firstNumber, secondNumber));
     }
-    if (operator === "+") {
-      setFirstNumber(Calculations.soma(firstNumber, secondNumber));
-    }
-    if (operator === "-") {
+    if (operator === "-" && secondNumber !== "") {
       setFirstNumber(Calculations.subtract(firstNumber, secondNumber));
     }
-    if (operator === "x") {
+    if (operator === "x" && secondNumber !== "") {
       setFirstNumber(Calculations.multiply(firstNumber, secondNumber));
     }
-    if (operator === "/") {
+    if (operator === "/" && secondNumber !== "") {
       setFirstNumber(Calculations.divide(firstNumber, secondNumber));
     }
+    setIsOperatorSelected(true);
     setSecondNumber("");
     setOperator(op);
-    if (op === "=") {
+    if (op === "=" && secondNumber !== "") {
       setOperator("");
-      isOperatorSelected(false);
+      setIsOperatorSelected(false);
     }
     if (op === "AC") {
       setFirstNumber("0");
@@ -97,7 +97,7 @@ function App() {
         <div className="numbers">
           <NumberChanger
             HandleFirstNumber={HandleFirstNumber}
-            HandleDecondNumber={HandleSecondNumber}
+            HandleSecondNumber={HandleSecondNumber}
           />
         </div>
         <div className="operators">

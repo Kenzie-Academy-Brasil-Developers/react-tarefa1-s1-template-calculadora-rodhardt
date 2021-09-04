@@ -23,8 +23,8 @@ function NumberChanger({ HandleFirstNumber, HandleSecondNumber }) {
           <button
             key={index}
             onClick={() => {
-              HandleFirstNumber();
-              HandleSecondNumber();
+              HandleFirstNumber(element);
+              HandleSecondNumber(element);
             }}
           >
             {element}
